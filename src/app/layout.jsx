@@ -50,7 +50,7 @@ const RootLayout = ({ children }) => {
                />
 
                {/* auth Component */}
-               <AuthComponent />
+               {/* <AuthComponent /> */}
 
                {/* backdrop component */}
                <Backdrop />

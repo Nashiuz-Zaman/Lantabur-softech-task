@@ -71,28 +71,22 @@ module.exports = {
             default: '150ms',
          },
          colors: {
-            primary: '#ff8631',
-            secondary: '#DB5937',
-            primaryDark: '#e6792c',
-            primaryLight: '#ff9246',
-            primaryLightest: '#ffdbc1',
+            primary: '#31C48D',
+            primaryDark: '#279d71',
+            primaryLight: '#5ad0a4',
+            primaryLightest: '#d6f3e8',
             textPrimary: '#1C1B1B',
             textMediumLight: '#1c1b1bcc',
             textLight: '#1c1b1b99',
             lightGray: '#f5f5f5',
-            lightBorder: '#ddd',
             blackLight: '#111',
-            darkThemeBg: '#202124',
          },
 
          borderRadius: {
-            default: '5px',
-            defaultLg: '10px',
+            default: '8px',
+            defaultLg: '16px',
          },
       },
    },
-   plugins: [
-      // ...
-      require('tailwind-scrollbar')({ nocompatible: true }),
-   ],
+   plugins: [],
 };
