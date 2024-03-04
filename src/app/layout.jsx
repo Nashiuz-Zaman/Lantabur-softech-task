@@ -24,9 +24,9 @@ const inter = Inter({ subsets: ['latin'] });
 
 // meta data
 export const metadata = {
-   title: 'Task Expert | Streamlining Your Productivity',
+   title: 'Waves - Making your travelling dreams a reality',
    description:
-      "Task Expert is all you'll ever need for seamless workflow management of your everyday responsibilities",
+      "Discover. Explore. Unwind. Your exotic adventure begins with us.",
 };
 
 const RootLayout = ({ children }) => {
