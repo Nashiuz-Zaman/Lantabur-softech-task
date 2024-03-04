@@ -2,32 +2,32 @@
 @tailwind components;
 @tailwind utilities;
 
-:root {
-  --foreground-rgb: 0, 0, 0;
-  --background-start-rgb: 214, 219, 220;
-  --background-end-rgb: 255, 255, 255;
-}
-
-@media (prefers-color-scheme: dark) {
-  :root {
-    --foreground-rgb: 255, 255, 255;
-    --background-start-rgb: 0, 0, 0;
-    --background-end-rgb: 0, 0, 0;
-  }
+html {
+   scroll-behavior: smooth;
+   scroll-padding-top: 2.5rem;
 }
 
 body {
-  color: rgb(var(--foreground-rgb));
-  background: linear-gradient(
-      to bottom,
-      transparent,
-      rgb(var(--background-end-rgb))
-    )
-    rgb(var(--background-start-rgb));
+   line-height: 1 !important;
 }
 
-@layer utilities {
-  .text-balance {
-    text-wrap: balance;
-  }
+::selection {
+   @apply bg-primaryLightest;
+}
+
+button::selection {
+   color: initial;
+   @apply bg-transparent;
+}
+
+a:link::selection,
+a:visited::selection {
+   color: auto;
+   @apply bg-transparent;
+}
+
+.no-backface-visibility {
+   backface-visibility: hidden;
+   -moz-backface-visibility: hidden;
+   -webkit-backface-visibility: hidden;
 }
