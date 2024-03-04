@@ -4,21 +4,14 @@
 import { useRouter } from 'next/navigation';
 
 // hooks
-import useFirebaseMethods from './useFirebaseMethods';
-
 import useFormVisiblity from './useFormVisiblity';
 
-// axios
-import axios from 'axios';
-import { axiosPublic } from './useAxios';
-
-// img bb api related
-const imageUploadAPIKey = process.env.NEXT_PUBLIC_IMGBB_API_KEY;
-const imageUploadAPI = `https://api.imgbb.com/1/upload?key=${imageUploadAPIKey}`;
+// utils
+import { axiosSecure } from '@/lib/axios/axios';
 
 // redux
 import { useDispatch } from 'react-redux';
-import {  
+import {
    setUserAlreadyRegistered,
    setUserShouldExist,
    setProfileData,
@@ -30,7 +23,6 @@ import {
 const useRegistrationForm = () => {
    // initial data and function extractions
    const dispatch = useDispatch();
-   const { signup, updateFirebaseProfile } = useFirebaseMethods();
    const router = useRouter();
    const { closeSignupFormWithBackdrop } = useFormVisiblity();
 
@@ -92,14 +84,12 @@ const useRegistrationForm = () => {
       dispatch(setRegistrationErrors([]));
 
       const form = e.target;
-      const userName = form.name.value;
-      const photo = form.file.files[0];
+      const userName = form.name.value;   
       const email = form.email.value;
       const password = form.password.value;
 
       const dataObject = {
-         userName,
-         photo,
+         userName,     
          email,
          password,
       };
@@ -115,56 +105,36 @@ const useRegistrationForm = () => {
       // if there are no basic errors code will reach this line
       try {
          dispatch(setRegistrationLoading(true));
-         const userExistsResponse = await axiosPublic.post(
-            '/users/checkExistence',
-            {
-               email: dataObject.email,
-            }
-         );
+         const user = {
+            name: dataObject.userName,
+            password: dataObject.password,
+            email: dataObject.email,
+         };
+
+         const signupResponse = await axiosSecure.post('/users', {
+            user,
+         });
 
          // if user exists
          if (userExistsResponse.data.userExists) {
             dispatch(setUserAlreadyRegistered(true));
             dispatch(setRegistrationLoading(false));
          } else {
-            // if user doesn't exist
-            // upload image to imgbb first
-            const image = { image: dataObject.photo };
-            const imageUploadResponse = await axios.post(
-               imageUploadAPI,
-               image,
-               {
-                  headers: {
-                     'content-type': 'multipart/form-data',
-                  },
-               }
-            );
-
             // if upload to imgbb is successful then proceed to sign up in firebase
             if (imageUploadResponse.data.success) {
-               const signupResponse = await signup(
-                  dataObject.email,
-                  dataObject.password
-               );
+               const signupResponse = null;
 
                if (signupResponse.user) {
                   // if firebase sign up successful update the profile first
-                  await updateFirebaseProfile(
-                     dataObject.userName,
-                     imageUploadResponse.data.data.display_url
-                  );
+                  // await updateFirebaseProfile(
+                  //    dataObject.userName,
+                  //    imageUploadResponse.data.data.display_url
+                  // );
 
                   // save new user object to database
-                  const user = {
-                     name: dataObject.userName,
-                     password: dataObject.password,
-                     email: dataObject.email,
-                     imageSource: imageUploadResponse.data.data.display_url,
-                     role: 'user',
-                  };
 
                   // create user api call
-                  const userCreationResponse = await axiosPublic.post(
+                  const userCreationResponse = await axiosSecure.post(
                      '/users',
                      user
                   );

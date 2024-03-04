@@ -4,11 +4,7 @@
 import { useRouter } from 'next/navigation';
 
 // custom hook
-import useFirebaseMethods from '@/hooks/useFirebaseMethods';
 import useFormVisiblity from './useFormVisiblity';
-
-// axios
-import { axiosPublic } from './useAxios';
 
 // redux
 import { useDispatch } from 'react-redux';
@@ -21,12 +17,11 @@ import {
 
 // utils
 import { showToast } from '@/utils/toastify';
+import { axiosSecure } from '@/lib/axios/axios';
 
 const useLoginForm = () => {
    const dispatch = useDispatch();
-   const { loginEmail, loginGoogle } = useFirebaseMethods();
-   const { closeLoginFormWithBackdrop, closeSignupFormWithBackdrop } =
-      useFormVisiblity();
+   const { closeLoginFormWithBackdrop } = useFormVisiblity();
    const router = useRouter();
 
    const validateInputs = inputs => {
@@ -46,46 +41,6 @@ const useLoginForm = () => {
       }
 
       return foundErrors;
-   };
-
-   // handle google sign in
-   const handleLoginGoogle = async () => {
-      dispatch(setLoginLoading(true));
-      const result = await loginGoogle();
-
-      // if google login is succesful send the google user object to the database to check role and existence and also to make a jwt token
-      if (result.user) {
-         const googleUser = {
-            name: result.user.displayName,
-            email: result.user.email,
-            image: result.user.photoURL,
-         };
-
-         // check with database if the google user already exists
-         const googleLoginResponse = await axiosPublic.post(
-            '/google-login',
-            googleUser
-         );
-
-         if (googleLoginResponse.data.success) {
-            const profileData = googleLoginResponse.data.user;
-            // set profile data, user should exist and the jwt token
-            dispatch(setProfileData(profileData));
-            dispatch(setUserShouldExist(true));
-            localStorage.setItem(
-               'tokenExists',
-               googleLoginResponse.data.tokenExists
-            );
-
-            closeLoginFormWithBackdrop();
-            closeSignupFormWithBackdrop();
-
-            router.push('/');
-
-            showToast('Logged In Successfully', 'success');
-            dispatch(setLoginLoading(false));
-         }
-      }
    };
 
    // handle normal login
@@ -115,11 +70,11 @@ const useLoginForm = () => {
       try {
          dispatch(setLoginLoading(true));
          // firebase login api call
-         const result = await loginEmail(dataObject.email, dataObject.password);
+         const result = null;
 
          //  if firebase login is successful, check database for profile data
          if (result.user) {
-            const loginResponse = await axiosPublic.post('/login', {
+            const loginResponse = await axiosSecure.post('/login', {
                email: result.user.email,
             });
 
@@ -149,7 +104,6 @@ const useLoginForm = () => {
 
    return {
       handleLoginEmail,
-      handleLoginGoogle,
    };
 };
 
