@@ -1,6 +1,6 @@
 import PropTypes from 'prop-types';
 
-const InputField1 = ({
+const InputField = ({
    name,
    type = 'text',
    placeholder = 'Default Placeholder',
@@ -16,11 +16,11 @@ const InputField1 = ({
    );
 };
 
-InputField1.propTypes = {
+InputField.propTypes = {
    name: PropTypes.string,
    type: PropTypes.string,
    placeholder: PropTypes.string,
    modifyClasses: PropTypes.string,
 };
 
-export default InputField1;
+export default InputField;
