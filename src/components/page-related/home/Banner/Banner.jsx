@@ -6,7 +6,6 @@ import BannerText from '@/components/page-related/home/Banner/BannerText/BannerT
 
 // data
 import { homeTopBannerTextContent } from '@/uiData/homeUiContent';
-import bannerImg from './../../../../assets/banner/banner.webp';
 
 const Banner = () => {
    // extract heading and subheading
@@ -27,9 +26,10 @@ const Banner = () => {
                width={600}
                height={450}
                priority={true}
-               src={bannerImg}
+               quality={100}
+               src='https://i.postimg.cc/NjfLgJjg/banner.webp'
                className='!w-full !h-full !object-cover rounded-l-full rounded-tr-full shadow-medium'
-               alt='Woman working on a laptop'
+               alt='Sea beach'
             />
          </div>
       </div>
