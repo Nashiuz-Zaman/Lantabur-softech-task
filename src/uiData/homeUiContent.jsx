@@ -1,57 +1,24 @@
 export const homeTopBannerTextContent = {
    heading: (
       <>
-         Task Expert: Streamlining Your{' '}
-         <span className='text-primary'>Productivity</span>
+         Waves: Your Gateway to Exotic{' '}
+         <span className='text-primary'>Adventures</span> Awaits!
       </>
    ),
-   subheading: <>Effortless Task Management for a Seamless Workflow</>,
+   subheading: (
+      <>Discover. Explore. Unwind. Your exotic adventure begins with us.</>
+   ),
 };
 
-export const targetAudienceTextContent = {
+export const WhoWeAreContent = {
    heading: (
       <>
-         Who is it <span className='text-primary'>for</span>
+         Who<span className='text-primary'> We </span>Are
       </>
-   ),
-   subheading: 'Anyone can use, really!',
+   ),   
    description:
-      "It is a user-friendly and minimalist web app designed for basic task management in your everyday life. With its simplistic interface, Task Expert empowers users to organize and prioritize their daily tasks. Whether you're a professional, student, or anyone juggling multiple responsibilities.",
-   images: [
-      {
-         imageSource: 'https://i.ibb.co/vXFwP01/writer.webp',
-         altText: 'Writer',
-      },
-      {
-         imageSource: 'https://i.ibb.co/x8vnxKN/doctor.webp',
-         altText: 'Doctor',
-      },
-      {
-         imageSource: 'https://i.ibb.co/8YnZ1tz/teacher.webp',
-         altText: 'Teacher',
-      },
-      {
-         imageSource: 'https://i.ibb.co/Br7vRhf/athlete.webp',
-         altText: 'Athlete',
-      },
-      { imageSource: 'https://i.ibb.co/PZ3c0WB/chef.webp', altText: 'Chef' },
-      {
-         imageSource: 'https://i.ibb.co/RSgBwFq/developer.webp',
-         altText: 'Developer',
-      },
-      {
-         imageSource: 'https://i.ibb.co/dbkDB06/engineer.webp',
-         altText: 'Engineer',
-      },
-      {
-         imageSource: 'https://i.ibb.co/GsX3mhL/musician.webp',
-         altText: 'Musician',
-      },
-   ],
+      "Get to know us – a modern travel agency committed to simplicity and tailored experiences. Our user-centric approach ensures that journey planning becomes a delightful exploration. Whether you're a wanderlust enthusiast or a first-time traveler, we're here to redefine your understanding of personalized and hassle-free adventures. Join us in creating memorable travel stories, where every detail is thoughtfully curated just for you.",
+   imageSource: 'https://i.postimg.cc/PxSdMGtn/whoweare.webp',
 };
 
-export const socialLinks = {
-   githubLink: 'https://github.com/Nashiuz-Zaman',
-   linkedInLink: 'https://www.linkedin.com/in/nashiuz-zaman',
-   facebookLink: 'https://www.facebook.com/nashiuzzZaman',
-};
+
