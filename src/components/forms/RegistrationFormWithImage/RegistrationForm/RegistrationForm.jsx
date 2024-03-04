@@ -4,7 +4,7 @@ import { useEffect, useRef } from 'react';
 
 // components
 import ButtonBtn from '@/components/buttons/ButtonBtn/ButtonBtn';
-import InputField1 from '@/components/shared/InputField1/InputField1';
+import InputField from '@/components/shared/InputField/InputField';
 import PasswordField from '@/components/shared/PasswordField/PasswordField';
 
 // hooks
@@ -52,10 +52,10 @@ const RegistrationForm = ({ modifyClasses }) => {
          >
             <div className='w-full space-y-3 md:space-y-5 xs:w-[17rem] 2md:w-full 2md:mx-0 mx-auto'>
                {/* username field */}
-               <InputField1 name='name' placeholder='Username' />
+               <InputField name='name' placeholder='Username' />
 
                {/* email field */}
-               <InputField1 type='email' name='email' placeholder='Email' />
+               <InputField type='email' name='email' placeholder='Email' />
 
                {/* password field */}
                <PasswordField name='password' placeholder='Password' />

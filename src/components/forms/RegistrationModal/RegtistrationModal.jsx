@@ -14,9 +14,6 @@ import useStopScrolling from '@/hooks/useStopScrolling';
 // redux
 import { useSelector } from 'react-redux';
 
-// data
-import registrationImg from './../../../assets/forms/registration.webp';
-
 const RegistrationModal = () => {
    const { registrationFormOpen } = useSelector(store => store.form);
    const { closeSignupFormWithBackdrop } = useFormVisiblity();
@@ -49,7 +46,9 @@ const RegistrationModal = () => {
                : ''
          }`}
       >
-         <RegistrationFormWithImage imageSource={registrationImg} />
+         <RegistrationFormWithImage
+            imageSource={'https://i.postimg.cc/SxvGPdr0/auth-1.webp'}
+         />
       </div>
    );
 };

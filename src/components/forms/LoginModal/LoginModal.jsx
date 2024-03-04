@@ -14,9 +14,6 @@ import useStopScrolling from '@/hooks/useStopScrolling';
 // redux
 import { useSelector } from 'react-redux';
 
-// data
-import loginImg from './../../../assets/forms/login.webp';
-
 const LoginModal = () => {
    const { loginFormOpen } = useSelector(store => store.form);
    const { closeLoginFormWithBackdrop } = useFormVisiblity();
@@ -47,7 +44,7 @@ const LoginModal = () => {
             loginFormOpen ? '!opacity-100 !visible !-translate-y-1/2' : ''
          }`}
       >
-         <LoginFormWithImage imageSource={loginImg} />
+         <LoginFormWithImage imageSource={'https://i.postimg.cc/SxvGPdr0/auth-1.webp'} />
       </div>
    );
 };

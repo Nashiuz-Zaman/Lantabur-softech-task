@@ -7,7 +7,7 @@ import { useEffect, useRef } from 'react';
 // component
 import ButtonBtn from '@/components/buttons/ButtonBtn/ButtonBtn';
 import PasswordField from '@/components/shared/PasswordField/PasswordField';
-import InputField1 from '@/components/shared/InputField1/InputField1';
+import InputField from '@/components/shared/InputField/InputField';
 
 // hooks
 import useLoginForm from '@/hooks/useLoginForm';
@@ -52,7 +52,7 @@ const LoginForm = ({ modifyClasses = '' }) => {
          >
             <div className='w-full space-y-3 md:space-y-5 xs:w-[17rem] 2md:w-full 2md:mx-0 mx-auto'>
                {/* email */}
-               <InputField1 type='email' name='email' placeholder='Email' />
+               <InputField type='email' name='email' placeholder='Email' />
 
                {/* password */}
                <PasswordField name='password' placeholder='Password' />
