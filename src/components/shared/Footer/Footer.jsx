@@ -23,7 +23,7 @@ const Footer = () => {
     'text-4xl text-white hover:text-primary transition-all duration-150 cursor-pointer';
 
   return (
-    <footer className='bg-blackLight pt-customLg pb-customSm relative'>
+    <footer className='bg-blackLight mt-auto pt-customLg pb-customSm relative'>
       <InnerContainer>
         {/* top part */}
 

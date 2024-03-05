@@ -27,7 +27,6 @@ const useAuth = () => {
 
             if (res.data?.user) {
                dispatch(setProfileData(res.data?.user));
-
                return;
             }
 
@@ -38,7 +37,7 @@ const useAuth = () => {
       };
 
       getUser();
-   }, [dispatch]);
+   }, []);
 };
 
 export default useAuth;

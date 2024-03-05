@@ -20,6 +20,7 @@ import useEscapeClose from '@/hooks/useEscapeClose';
 import useClickOutside from '@/hooks/useClickOutside';
 import useFormVisiblity from '@/hooks/useFormVisiblity';
 import useStopScrolling from '@/hooks/useStopScrolling';
+import useAuthMethods from '@/hooks/useAuthMethods';
 
 // redux
 import { useSelector } from 'react-redux';
@@ -28,6 +29,7 @@ const MobileNav = ({ modifyClasses = '' }) => {
    const { profileData } = useSelector(store => store.auth);
    const { mobileNavOpen, openMobileNav, closeMobileNav } =
       useMobileNavigation();
+   const { logout } = useAuthMethods();
 
    const router = useRouter();
    const { openLoginFormWithBackdrop } = useFormVisiblity();
@@ -109,6 +111,7 @@ const MobileNav = ({ modifyClasses = '' }) => {
                <ButtonBtn
                   text='Sign Out'
                   onClickFunction={() => {
+                     logout();
                      closeMobileNav();
                   }}
                   modifyClasses='mt-customXs mx-auto sm:mx-0'
