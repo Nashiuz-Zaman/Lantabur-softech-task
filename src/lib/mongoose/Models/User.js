@@ -1,4 +1,4 @@
-import {Schema, model} from "mongoose";
+import {Schema, model,models} from "mongoose";
 
 const userSchema = new Schema({
   name: {
@@ -15,4 +15,4 @@ const userSchema = new Schema({
   }
 })
 
-export const UserModel = model('User', userSchema)
+export const UserModel = models.User || model('User', userSchema)
