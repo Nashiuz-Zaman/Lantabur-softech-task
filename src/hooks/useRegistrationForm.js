@@ -12,12 +12,13 @@ import { axiosSecure } from '@/lib/axios/axios';
 // redux
 import { useDispatch } from 'react-redux';
 import {
-   setUserAlreadyRegistered,
-   setUserShouldExist,
    setProfileData,
    setRegistrationErrors,
    setRegistrationLoading,
 } from '@/lib/redux/features/auth/authSlice';
+
+// utils
+import { showToast } from '@/utils/toastify';
 
 // custom hook body starts here
 const useRegistrationForm = () => {
@@ -49,17 +50,13 @@ const useRegistrationForm = () => {
    };
 
    const validateInputs = inputs => {
-      const { userName, photo, email, password } = inputs;
+      const { userName, email, password } = inputs;
       const emailRegex = /[a-z0-9._]+@[a-z0-9]+.[a-z]+/g;
 
       const foundErrors = [];
 
       if (userName === '') {
          foundErrors.push('Must provide an username');
-      }
-
-      if (!photo) {
-         foundErrors.push('Must provide a photo');
       }
 
       if (email === '') {
@@ -84,12 +81,12 @@ const useRegistrationForm = () => {
       dispatch(setRegistrationErrors([]));
 
       const form = e.target;
-      const userName = form.name.value;   
+      const userName = form.name.value;
       const email = form.email.value;
       const password = form.password.value;
 
       const dataObject = {
-         userName,     
+         userName,
          email,
          password,
       };
@@ -114,47 +111,15 @@ const useRegistrationForm = () => {
          const signupResponse = await axiosSecure.post('/users', {
             user,
          });
+         dispatch(setRegistrationLoading(false));
+         console.log(signupResponse);
+         // if success
+         if (signupResponse?.data?.status === 'success') {
+            dispatch(setProfileData(signupResponse.data.user));
+            showToast('Signup Successful', 'success');
 
-         // if user exists
-         if (userExistsResponse.data.userExists) {
-            dispatch(setUserAlreadyRegistered(true));
-            dispatch(setRegistrationLoading(false));
-         } else {
-            // if upload to imgbb is successful then proceed to sign up in firebase
-            if (imageUploadResponse.data.success) {
-               const signupResponse = null;
-
-               if (signupResponse.user) {
-                  // if firebase sign up successful update the profile first
-                  // await updateFirebaseProfile(
-                  //    dataObject.userName,
-                  //    imageUploadResponse.data.data.display_url
-                  // );
-
-                  // save new user object to database
-
-                  // create user api call
-                  const userCreationResponse = await axiosSecure.post(
-                     '/users',
-                     user
-                  );
-
-                  // if success
-                  if (userCreationResponse.data.success) {
-                     const profileData = userCreationResponse.data.user;
-                     dispatch(setProfileData(profileData));
-                     dispatch(setUserShouldExist(true));
-                     localStorage.setItem(
-                        'tokenExists',
-                        userCreationResponse.data.tokenExists
-                     );
-
-                     closeSignupFormWithBackdrop();
-                     router.push('/');
-                     dispatch(setRegistrationLoading(false));
-                  }
-               }
-            }
+            closeSignupFormWithBackdrop();
+            router.push('/');
          }
       } catch (error) {
          if (error) {

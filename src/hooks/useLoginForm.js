@@ -9,7 +9,6 @@ import useFormVisiblity from './useFormVisiblity';
 // redux
 import { useDispatch } from 'react-redux';
 import {
-   setUserShouldExist,
    setProfileData,
    setLoginErrors,
    setLoginLoading,
@@ -81,7 +80,7 @@ const useLoginForm = () => {
             if (loginResponse.data.success) {
                const profileData = loginResponse.data.user;
                dispatch(setProfileData(profileData));
-               dispatch(setUserShouldExist(true));
+              
                // set profile and the jwt token in the localstorage
                localStorage.setItem(
                   'tokenExists',
