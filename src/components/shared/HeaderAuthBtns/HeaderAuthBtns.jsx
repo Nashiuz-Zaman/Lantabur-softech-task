@@ -6,15 +6,16 @@ import Link from 'next/link';
 
 // hooks
 import useFormVisiblity from '@/hooks/useFormVisiblity';
+import useAuthMethods from '@/hooks/useAuthMethods';
 
 // redux
 import { useSelector } from 'react-redux';
 
 const HeaderAuthBtns = ({ modifyClasses = '' }) => {
    const { profileData, userLoading } = useSelector(store => store.auth);
+   const { logout } = useAuthMethods();
    const { openLoginFormWithBackdrop, openSignupFormWithBackdrop } =
       useFormVisiblity();
- 
 
    // common btn classes
    const btnClasses = 'hover:text-primary transition-all duration-default';
@@ -62,7 +63,7 @@ const HeaderAuthBtns = ({ modifyClasses = '' }) => {
                >
                   Your Destinations
                </Link>
-               <button onClick={null} className={btnClasses}>
+               <button onClick={logout} className={btnClasses}>
                   Sign Out
                </button>
             </>
