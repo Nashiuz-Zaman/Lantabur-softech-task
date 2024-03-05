@@ -3,12 +3,16 @@ import { cookies } from 'next/headers';
 import { NextResponse } from 'next/server';
 
 export const GET = async () => {
-   const session = cookies().get('session')?.value;
+   try {
+      const session = cookies().get('session')?.value;
 
-   if (!session) return NextResponse.json({ user: null });
-   
-   const user = extractToken(session);
-   if (!user) return NextResponse.json({ user: null });
+      if (!session) return NextResponse.json({ user: null });
 
-   return NextResponse.json({ ...user });
+      const user = extractToken(session);
+      if (!user) return NextResponse.json({ user: null });
+
+      return NextResponse.json({ ...user });
+   } catch (error) {
+      throw new Error(error);
+   }
 };

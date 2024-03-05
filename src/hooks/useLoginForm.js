@@ -1,8 +1,5 @@
 'use client';
 
-// next
-import { useRouter } from 'next/navigation';
-
 // custom hook
 import useFormVisiblity from './useFormVisiblity';
 
@@ -21,7 +18,6 @@ import { axiosSecure } from '@/lib/axios/axios';
 const useLoginForm = () => {
    const dispatch = useDispatch();
    const { closeLoginFormWithBackdrop } = useFormVisiblity();
-   const router = useRouter();
 
    const validateInputs = inputs => {
       const { email, password } = inputs;
@@ -68,35 +64,25 @@ const useLoginForm = () => {
 
       try {
          dispatch(setLoginLoading(true));
-         // firebase login api call
-         const result = null;
 
-         //  if firebase login is successful, check database for profile data
-         if (result.user) {
-            const loginResponse = await axiosSecure.post('/login', {
-               email: result.user.email,
-            });
+         const loginResponse = await axiosSecure.post('/login', {
+            loginData: dataObject,
+         });
 
-            if (loginResponse.data.success) {
-               const profileData = loginResponse.data.user;
-               dispatch(setProfileData(profileData));
-              
-               // set profile and the jwt token in the localstorage
-               localStorage.setItem(
-                  'tokenExists',
-                  loginResponse.data.tokenExists
-               );
+         dispatch(setLoginLoading(false));
 
-               closeLoginFormWithBackdrop();
+         if (loginResponse.data.status === 'failed') {
+            dispatch(setLoginErrors([loginResponse.data.message]));
+            return;
+         }
 
-               router.push('/');
-
-               showToast('Logged In Successfully', 'success');
-               dispatch(setLoginLoading(false));
-            }
+         if (loginResponse.data.status === 'success') {
+            dispatch(setProfileData(loginResponse.data.user));
+            closeLoginFormWithBackdrop();
+            showToast('Logged In Successfully', 'success');
          }
       } catch (error) {
-         dispatch(setLoginErrors(["Email/Password doesn't match. Try again."]));
+         dispatch(setLoginErrors([error.message]));
          dispatch(setLoginLoading(false));
       }
    };

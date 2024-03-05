@@ -18,7 +18,7 @@ export const POST = async req => {
          const session = { user: newUser };
          const token = generateToken(session);
 
-         cookies().set('session', token, { httpOnly: true, sameSite: true,expires: new Date(Date.now() + 1000 * 60 * 10) });
+         cookies().set('session', token, { httpOnly: true, sameSite: true,expires: new Date(Date.now() + 1000 * 60 * 60) });
          return NextResponse.json({ status: 'success', user: newUser });
       }
    } catch (err) {
