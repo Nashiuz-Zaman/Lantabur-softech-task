@@ -6,6 +6,7 @@ const nextConfig = {
       DB_PASS: process.env.DB_PASS,
       DB_NAME: process.env.DB_NAME,
       NEXT_PUBLIC_PROD_SERVER_URL: process.env.NEXT_PUBLIC_PROD_SERVER_URL,
+      secret: process.env.token_secret
    },
    images: {
       remotePatterns: [
